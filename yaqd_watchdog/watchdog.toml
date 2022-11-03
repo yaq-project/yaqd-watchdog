@@ -1,0 +1,17 @@
+protocol = "watchdog"
+doc = ""
+traits = ["is-daemon"]
+
+[links]
+source = "https://github.com/yaq-project/yaqd-watchdog"
+bugtracker = "https://github.com/yaq-project/yaqd-watchdog/-/issues"
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-watchdog"
+
+[config]
+
+[state]
+
+[messages]
+
