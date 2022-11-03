@@ -3,10 +3,10 @@ __all__ = ["Watchdog"]
 import asyncio
 from typing import Dict, Any, List
 
-from yaqd_core import IsDaemon
+from yaqd_core import IsSensor, IsDaemon
 
 
-class Watchdog(IsDaemon):
+class Watchdog(IsSensor, IsDaemon):
     _kind = "watchdog"
 
     def __init__(self, name, config, config_filepath):

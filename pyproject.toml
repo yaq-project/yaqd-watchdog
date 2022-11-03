@@ -34,7 +34,6 @@ dev = ["black", "pre-commit"]
 [tool.flit.scripts]
 yaqd-watchdog = "yaqd_watchdog._watchdog:Watchdog.main"
 
-
 [tool.black]
 line-length = 99
 target-version = ['py311']

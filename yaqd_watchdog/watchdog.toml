@@ -1,6 +1,6 @@
 protocol = "watchdog"
 doc = ""
-traits = ["is-daemon"]
+traits = ["is-sensor", "is-daemon"]
 
 [links]
 source = "https://github.com/yaq-project/yaqd-watchdog"
@@ -9,9 +9,58 @@ bugtracker = "https://github.com/yaq-project/yaqd-watchdog/-/issues"
 [installation]
 PyPI = "https://pypi.org/project/yaqd-watchdog"
 
+[[types]]
+type = "record"
+name = "check_online"
+fields = [{"name"="host", "type"="string", "default"="localhost"},
+          {"name"="port", "type"="int"},
+          {"name"="online", "type"="boolean"},
+          {"name"="delay", "type"="int", "default"=10, "doc"="seconds"}]
+
+[[types]]
+type = "record"
+name = "check_position_absolute"
+fields = [{"name"="host", "type"="string", "default"="localhost"},
+          {"name"="port", "type"="int"},
+          {"name"="under", "type"="float"},
+          {"name"="over", "type"="float"},
+          {"name"="delay", "type"="int", "default"=10, "doc"="seconds"}]
+
+[[types]]
+type = "record"
+name = "check_position_tolerance"
+fields = [{"name"="host", "type"="string", "default"="localhost"},
+          {"name"="port", "type"="int"},
+          {"name"="percent_under", "type"="int"},
+          {"name"="percent_over", "type"="int"},
+          {"name"="delay", "type"="int", "default"=10, "doc"="seconds"}]
+
+[[types]]
+type = "record"
+name = "set_position"
+fields = [{"name"="host", "type"="string", "default"="localhost"},
+          {"name"="port", "type"="int"},
+          {"name"="position", "type"="float"}]
+
+[[types]]
+type = "record"
+name = "set_identifier"
+fields = [{"name"="host", "type"="string", "default"="localhost"},
+          {"name"="port", "type"="int"},
+          {"name"="identifier", "type"="string"}]
+
 [config]
+
+[config.checks]
+type = "map"
+values = ["check_online", "check_position_tolerance", "check_position_absolute"]
+default = {}
+
+[config.actions]
+type = "map"
+values = ["set_position", "set_identifier"]
+default = {}
 
 [state]
 
 [messages]
-
