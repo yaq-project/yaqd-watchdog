@@ -4,7 +4,8 @@
             "default": {},
             "type": "map",
             "values": [
-                "call"
+                "set_position",
+                "set_identifier"
             ]
         },
         "checks": {
@@ -293,11 +294,30 @@
                     "type": "int"
                 },
                 {
-                    "name": "method",
+                    "name": "position",
+                    "type": "float"
+                }
+            ],
+            "name": "set_position",
+            "type": "record"
+        },
+        {
+            "fields": [
+                {
+                    "default": "localhost",
+                    "name": "host",
+                    "type": "string"
+                },
+                {
+                    "name": "port",
+                    "type": "int"
+                },
+                {
+                    "name": "identifier",
                     "type": "string"
                 }
             ],
-            "name": "call",
+            "name": "set_identifier",
             "type": "record"
         },
         {
