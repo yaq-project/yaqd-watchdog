@@ -11,7 +11,6 @@ from yaqd_core import IsSensor, IsDaemon
 
 
 class BaseCheck:
-
     def check(self) -> float:
         if "_remaining" not in self.__dict__:
             self._remaining = self.timeout
@@ -23,7 +22,6 @@ class BaseCheck:
         else:
             self._remaining = max(0, self.timeout + (self._last - time.time()))
         return self._remaining
-
 
 
 @dataclass
