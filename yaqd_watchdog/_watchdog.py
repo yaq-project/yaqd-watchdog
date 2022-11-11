@@ -82,7 +82,6 @@ class PercentagePositionCheck(BaseCheck):
             return False
 
 
-
 @dataclass
 class SetPositionAction:
     host: str
