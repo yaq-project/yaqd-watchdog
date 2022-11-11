@@ -15,25 +15,25 @@ name = "check_online"
 fields = [{"name"="host", "type"="string", "default"="localhost"},
           {"name"="port", "type"="int"},
           {"name"="online", "type"="boolean"},
-          {"name"="delay", "type"="int", "default"=10, "doc"="seconds"}]
+          {"name"="timeout", "type"="int", "default"=10, "doc"="seconds"}]
 
 [[types]]
 type = "record"
 name = "check_position_absolute"
 fields = [{"name"="host", "type"="string", "default"="localhost"},
           {"name"="port", "type"="int"},
-          {"name"="under", "type"="float"},
-          {"name"="over", "type"="float"},
-          {"name"="delay", "type"="int", "default"=10, "doc"="seconds"}]
+          {"name"="under", "type"=["float", "null"]},
+          {"name"="over", "type"=["float", "null"]},
+          {"name"="timeout", "type"="int", "default"=10, "doc"="seconds"}]
 
 [[types]]
 type = "record"
-name = "check_position_tolerance"
+name = "check_position_percentage"
 fields = [{"name"="host", "type"="string", "default"="localhost"},
           {"name"="port", "type"="int"},
-          {"name"="percent_under", "type"="int"},
-          {"name"="percent_over", "type"="int"},
-          {"name"="delay", "type"="int", "default"=10, "doc"="seconds"}]
+          {"name"="percent_under", "type"="float"},
+          {"name"="percent_over", "type"="float"},
+          {"name"="timeout", "type"="int", "default"=10, "doc"="seconds"}]
 
 [[types]]
 type = "record"
@@ -51,14 +51,29 @@ fields = [{"name"="host", "type"="string", "default"="localhost"},
 
 [config]
 
-[config.checks]
+[config.online_checks]
 type = "map"
-values = ["check_online", "check_position_tolerance", "check_position_absolute"]
+values = "check_online"
 default = {}
 
-[config.actions]
+[config.absolute_position_checks]
 type = "map"
-values = ["set_position", "set_identifier"]
+values = "check_position_absolute"
+default = {}
+
+[config.percentage_position_checks]
+type = "map"
+values = "check_position_percentage"
+default = {}
+
+[config.set_position_actions]
+type = "map"
+values = "set_position"
+default = {}
+
+[config.set_identifier_actions]
+type = "map"
+values = "set_identifier"
 default = {}
 
 [state]
