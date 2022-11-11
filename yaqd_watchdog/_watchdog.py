@@ -73,9 +73,9 @@ class PercentagePositionCheck(BaseCheck):
             position = c.get_position()
             destination = c.get_destination()
             if self.percent_over is not None:
-                assert position >= destination * (self.percent_over / 100)
+                assert position >= destination * (float(self.percent_over) / 100)
             if self.under is not None:
-                assert position <= destination * (self.percent_under / 100)
+                assert position <= destination * (float(self.percent_under) / 100)
             return True
         except Exception as e:
             print(e)
