@@ -65,7 +65,7 @@ class PercentagePositionCheck(BaseCheck):
     port: int
     percent_under = float
     percent_over = float
-    delay = int
+    timeout = int
 
     def _check(self) -> bool:
         try:
