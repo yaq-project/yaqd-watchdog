@@ -67,12 +67,34 @@ class PercentagePositionCheck(BaseCheck):
     percent_over = float
     delay = int
 
+    def _check(self) -> bool:
+        try:
+            c = yaqc.Client(host=self.host, port=self.port)
+            position = c.get_position()
+            destination = c.get_destination()
+            if self.percent_over is not None:
+                assert position >= destination * (self.percent_over / 100)
+            if self.under is not None:
+                assert position <= destination * (self.percent_under / 100)
+            return True
+        except Exception as e:
+            print(e)
+            return False
+
+
 
 @dataclass
 class SetPositionAction:
     host: str
     port: int
     position: float
+
+    def trigger(self, checks: dict):
+        try:
+            c = yaqc.Client(host=self.host, port=self.port)
+            c.set_position(self.position)
+        except:
+            pass
 
 
 @dataclass
@@ -81,12 +103,20 @@ class SetIdentifierAction:
     port: int
     identifier: float
 
+    def trigger(self, checks: dict):
+        try:
+            c = yaqc.Client(host=self.host, port=self.port)
+            c.set_identifier(self.identifier)
+        except:
+            pass
+
 
 class Watchdog(IsSensor, IsDaemon):
     _kind = "watchdog"
 
     def __init__(self, name, config, config_filepath):
         super().__init__(name, config, config_filepath)
+        # checks
         self._checks = {}
         for k, d in self._config["online_checks"].items():
             self._checks[k] = OnlineCheck(**d)
@@ -94,14 +124,31 @@ class Watchdog(IsSensor, IsDaemon):
             self._checks[k] = AbsolutePositionCheck(**d)
         for k, d in self._config["percentage_position_checks"].items():
             self._checks[k] = PercentagePositionCheck(**d)
+        # actions
         self._actions = {}
         for k, d in self._config["set_position_actions"].items():
             self._actions[k] = SetPositionAction(**d)
         for k, d in self._config["set_identifier_actions"].items():
             self._actions[k] = SetIdentifierAction(**d)
+        # sensor stuff
+        self._channel_names = list(self._checks.keys())
+        self._channel_units = {k: "s" for k in self._channel_names}
 
     async def update_state(self):
         while True:
+            starved = False
+            # checks
+            channels = dict()
             for k, check in self._checks.items():
-                print(check, check.check())
+                remaining = check.check()
+                channels[k] = remaining
+                if remaining == 0:
+                    starved = True
+            self._measurement_id += 1
+            channels["measurement_id"] = self._measurement_id
+            self._measured = channels
+            # actions
+            if starved:
+                for k, action in self_actions.items():
+                    action.trigger(self._measured)
             await asyncio.sleep(1)
