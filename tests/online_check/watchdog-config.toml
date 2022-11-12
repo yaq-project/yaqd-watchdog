@@ -1,0 +1,7 @@
+[fido]
+port = 36001
+
+[fido.online_checks.sensor_online]
+port = 36000
+online = true
+timeout = 1
