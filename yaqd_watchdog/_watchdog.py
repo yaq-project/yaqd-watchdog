@@ -153,6 +153,6 @@ class Watchdog(IsSensor, IsDaemon):
             self._measured = channels
             # actions
             if starved:
-                for k, action in self_actions.items():
+                for k, action in self._actions.items():
                     action.trigger(self._measured)
             await asyncio.sleep(1)
