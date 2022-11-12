@@ -4,16 +4,21 @@ import asyncio
 import time
 from typing import Dict, Any, List, Union
 from dataclasses import dataclass
-import yaqc
+import yaqc  # type: ignore
 import socket
 
 from yaqd_core import IsSensor, IsDaemon
 
 
 class BaseCheck:
+    timeout: int
+
+    def _check(self) -> bool:
+        raise NotImplementedError
+
     def check(self) -> float:
         if "_remaining" not in self.__dict__:
-            self._remaining = self.timeout
+            self._remaining = float(self.timeout)
         if "_last" not in self.__dict__:
             self._last = time.time()
         if self._check():
@@ -63,9 +68,9 @@ class AbsolutePositionCheck(BaseCheck):
 class PercentagePositionCheck(BaseCheck):
     host: str
     port: int
-    percent_under = float
-    percent_over = float
-    timeout = int
+    percent_under: float
+    percent_over: float
+    timeout: int
 
     def _check(self) -> bool:
         try:
