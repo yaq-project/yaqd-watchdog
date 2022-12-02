@@ -22,9 +22,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip!=22.1.*
         python -m pip install --upgrade wheel setuptools pytest numpy
+        python -m pip install yaqd-fakes
         python -m pip install .
     - name: Run pytest
       run: |
         cd tests
         pytest
-
