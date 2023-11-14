@@ -85,6 +85,11 @@
             "default": {},
             "type": "map",
             "values": "set_position"
+        },
+        "set_relative_actions": {
+            "default": {},
+            "type": "map",
+            "values": "set_relative"
         }
     },
     "doc": "",
@@ -244,18 +249,14 @@
                     "type": "int"
                 },
                 {
+                    "default": "inf",
                     "name": "under",
-                    "type": [
-                        "float",
-                        "null"
-                    ]
+                    "type": "float"
                 },
                 {
+                    "default": "-inf",
                     "name": "over",
-                    "type": [
-                        "float",
-                        "null"
-                    ]
+                    "type": "float"
                 },
                 {
                     "default": 10,
@@ -279,10 +280,12 @@
                     "type": "int"
                 },
                 {
+                    "default": "inf",
                     "name": "percent_under",
                     "type": "float"
                 },
                 {
+                    "default": "-inf",
                     "name": "percent_over",
                     "type": "float"
                 },
@@ -313,6 +316,25 @@
                 }
             ],
             "name": "set_position",
+            "type": "record"
+        },
+        {
+            "fields": [
+                {
+                    "default": "localhost",
+                    "name": "host",
+                    "type": "string"
+                },
+                {
+                    "name": "port",
+                    "type": "int"
+                },
+                {
+                    "name": "distance",
+                    "type": "float"
+                }
+            ],
+            "name": "set_relative",
             "type": "record"
         },
         {
