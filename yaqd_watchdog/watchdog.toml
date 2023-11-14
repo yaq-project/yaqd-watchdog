@@ -22,8 +22,8 @@ type = "record"
 name = "check_position_absolute"
 fields = [{"name"="host", "type"="string", "default"="localhost"},
           {"name"="port", "type"="int"},
-          {"name"="under", "type"=["float", "null"], default="__null__"},
-          {"name"="over", "type"=["float", "null"], default="__null__"},
+          {"name"="under", "type"="float", default="inf"},
+          {"name"="over", "type"="float", default="-inf"},
           {"name"="timeout", "type"="int", "default"=10, "doc"="seconds"}]
 
 [[types]]
@@ -31,8 +31,8 @@ type = "record"
 name = "check_position_percentage"
 fields = [{"name"="host", "type"="string", "default"="localhost"},
           {"name"="port", "type"="int"},
-          {"name"="percent_under", "type"=["float", "null"], default="__null__"},
-          {"name"="percent_over", "type"=["float", "null"], default="__null__"},
+          {"name"="percent_under", "type"="float", default="inf"},
+          {"name"="percent_over", "type"="float", default="-inf"},
           {"name"="timeout", "type"="int", "default"=10, "doc"="seconds"}]
 
 [[types]]
@@ -41,6 +41,13 @@ name = "set_position"
 fields = [{"name"="host", "type"="string", "default"="localhost"},
           {"name"="port", "type"="int"},
           {"name"="position", "type"="float"}]
+
+[[types]]
+type = "record"
+name = "set_relative"
+fields = [{"name"="host", "type"="string", "default"="localhost"},
+          {"name"="port", "type"="int"},
+          {"name"="distance", "type"="float"}]
 
 [[types]]
 type = "record"
@@ -69,6 +76,11 @@ default = {}
 [config.set_position_actions]
 type = "map"
 values = "set_position"
+default = {}
+
+[config.set_relative_actions]
+type = "map"
+values = "set_relative"
 default = {}
 
 [config.set_identifier_actions]

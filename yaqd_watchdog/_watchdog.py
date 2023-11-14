@@ -25,7 +25,7 @@ class BaseCheck:
             self._remaining = self.timeout
             self._last = time.time()
         else:
-            self._remaining = max(0, self.timeout + (self._last - time.time()))
+            self._remaining = max(0.0, self.timeout + (self._last - time.time()))
         return self._remaining
 
 
@@ -97,6 +97,20 @@ class SetPositionAction:
         try:
             c = yaqc.Client(host=self.host, port=self.port)
             c.set_position(self.position)
+        except:
+            pass
+
+
+@dataclass
+class SetRelativeAction:
+    host: str
+    port: int
+    distance: float
+
+    def trigger(self, checks: dict):
+        try:
+            c = yaqc.Client(host=self.host, port=self.port)
+            c.set_relative(self.distance)
         except:
             pass
 
