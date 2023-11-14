@@ -44,6 +44,13 @@ fields = [{"name"="host", "type"="string", "default"="localhost"},
 
 [[types]]
 type = "record"
+name = "set_relative"
+fields = [{"name"="host", "type"="string", "default"="localhost"},
+          {"name"="port", "type"="int"},
+          {"name"="distance", "type"="float"}]
+
+[[types]]
+type = "record"
 name = "set_identifier"
 fields = [{"name"="host", "type"="string", "default"="localhost"},
           {"name"="port", "type"="int"},
@@ -69,6 +76,11 @@ default = {}
 [config.set_position_actions]
 type = "map"
 values = "set_position"
+default = {}
+
+[config.set_relative_actions]
+type = "map"
+values = "set_relative"
 default = {}
 
 [config.set_identifier_actions]
