@@ -244,6 +244,7 @@
                     "type": "int"
                 },
                 {
+                    "default": null,
                     "name": "under",
                     "type": [
                         "float",
@@ -251,6 +252,7 @@
                     ]
                 },
                 {
+                    "default": null,
                     "name": "over",
                     "type": [
                         "float",
@@ -279,12 +281,20 @@
                     "type": "int"
                 },
                 {
+                    "default": null,
                     "name": "percent_under",
-                    "type": "float"
+                    "type": [
+                        "float",
+                        "null"
+                    ]
                 },
                 {
+                    "default": null,
                     "name": "percent_over",
-                    "type": "float"
+                    "type": [
+                        "float",
+                        "null"
+                    ]
                 },
                 {
                     "default": 10,

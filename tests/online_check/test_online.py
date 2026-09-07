@@ -10,7 +10,6 @@ import yaqc
 import yaqd_core
 from yaqd_core import testing
 
-
 fake_sensor_config = pathlib.Path(__file__).parent / "fake-sensor-config.toml"
 watchdog_config = pathlib.Path(__file__).parent / "watchdog-config.toml"
 
